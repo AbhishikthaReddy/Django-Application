@@ -1,0 +1,47 @@
+                                                                        Web application which handles appointments
+
+
+
+1. The appointments will be stored in a Sql Lite database with at least 1 table. 
+2. One of the tables contains 3 columns: 
+	a. A date column which records the appointment's date
+	b. A time column
+	c. A description column.
+3. The back-end will be a Python script which handles requests from the browser.
+4. The frontend is a single web page which displays a "NEW" button, an empty text field with a "SEARCH" button and the bottom of the page for displaying the appointments in a table.
+5. The appointments area is initially empty. The document's jQuery DOM ready function will contain a call to a Javascript getAppointments() function.
+6. The Javascript getAppointments() function populates the appointments area (the DOM above). getAppointments() will accept an optional search string. getAppointments() issues an AJAX       'getAppointments' call to the back-end Python script, passing the optional search string. The back-end will reply with a JSON document containing the matching appointments, and the       front-end will use the resulting JSON object to render the data into the HTML <table> element. The resulting HTML is inserted into the DOM so that the <table> appears below the search       box.
+7. If the user enters text into the search text box and hits the SEARCH button, the appointments area is cleared and getAppointments() is called with text from the search box.  If the       search text box is empty when the SEARCH button is clicked, then ALL of the appointments appear. This dynamically refreshes the Table DOM, and not refreshes the entire page.
+8. When data is entered into the form and the "ADD" button is pressed, the form is submitted to the back-end.  Submitting the form also reloads the entire web page.
+
+
+Technical Steps Involved:
+
+1. Install Django default Python 3.5 version is installed or install Python3.5 version
+2. After installing Django create a Repo name appointments
+    $ django-admin startproject appointments
+    $ python manage.py runserver
+    $ python manage.py runserver 8000
+3. In appointments/urls.py
+   url(r'^$', views.home),
+   url(r'^admin/', admin.site.urls),
+   url(r'^get_appointments', views.get_appointments),    
+   url(r'^save_appointments', views.save_appointments),
+   url(r'^search_appointments', views.search_appointments),
+   create views.py in appointment folder
+4. $ python manage.py migrate
+5. Create models.py in appointment folder
+   from django.db import models
+   class user_appointments(models.Model):
+   date = models.DateField(null=True)
+   description = models.CharField(max_length=200, null=True)
+   time = models.CharField(max_length=10, null=True)
+6. Activate models by changing the INSTALLED_APPS in appointments/settings.py 
+7. $ python manage.py makemigrations appointment
+8. $ python manage.py migrate
+9. $ python manage.py runserver
+ 
+
+
+
+
